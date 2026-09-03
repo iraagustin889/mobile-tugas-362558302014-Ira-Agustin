@@ -62,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
 
               // Nama mahasiswa
               const Text(
-                'Nama Lengkap Anda', // Ganti dengan nama asli Anda
+                'Ira Agustin', // Ganti dengan nama asli Anda
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Text(
-                  'NIM: 3625XXXXXXXX', // Ganti dengan NIM asli Anda
+                  'NIM: 362558302014', // Ganti dengan NIM asli Anda
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
@@ -122,7 +122,7 @@ class ProfileScreen extends StatelessWidget {
                       _InfoRow(
                         icon: Icons.calendar_today_rounded,
                         label: 'Semester / TA',
-                        value: 'Semester 4 (2025/2026)',
+                        value: 'Semester 3 (2025/2026)',
                       ),
                     ],
                   ),
