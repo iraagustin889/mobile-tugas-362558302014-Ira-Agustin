@@ -13,6 +13,7 @@ class AcademicDashboardScreen extends StatefulWidget {
 class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
   final List<Course> _courses = Course.getSampleCourses();
   bool _isDarkMode = false;
+  String _selectedCategory = 'Semua';
 
   void _toggleDarkMode() {
     setState(() {
@@ -20,8 +21,39 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
     });
   }
 
+  // Getter untuk mengambil daftar mata kuliah yang sudah difilter
+  List<Course> get _filteredCourses {
+    if (_selectedCategory == 'Semua') {
+      return _courses;
+    }
+    return _courses.where((course) => course.toString().contains(_selectedCategory)).toList();
+  }
+
+  // Widget pembangun filter kategori untuk menghindari duplikasi kode
+  Widget _buildCategoryFilter() {
+    return Wrap(
+      spacing: 8.0,
+      runSpacing: 8.0,
+      children: ['Semua', 'Teori', 'Praktikum'].map((category) {
+        return ChoiceChip(
+          label: Text(category),
+          selected: _selectedCategory == category,
+          onSelected: (selected) {
+            if (selected) {
+              setState(() {
+                _selectedCategory = category;
+              });
+            }
+          },
+        );
+      }).toList(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final filteredList = _filteredCourses;
+
     return Theme(
       data: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -46,17 +78,16 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
             ),
           ],
         ),
-        // LayoutBuilder membaca ukuran layar untuk menentukan tata letak responsif
         body: LayoutBuilder(
           builder: (context, constraints) {
-            // Breakpoint 600dp: Tablet / Landscape menggunakan 2 kolom
+            // Breakpoint 600dp: Tablet / Landscape (2 Kolom)
             if (constraints.maxWidth >= 600) {
               return Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Kolom kiri: banner profil
+                    // Kolom Kiri: Banner Profil
                     const Expanded(
                       flex: 2,
                       child: SingleChildScrollView(
@@ -64,25 +95,31 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
                       ),
                     ),
                     const SizedBox(width: 20),
-                    // Kolom kanan: jumlah kolom mengikuti ruang yang tersedia.
+                    // Kolom Kanan: Filter + Grid Mata Kuliah
                     Expanded(
                       flex: 3,
-                      child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                          // Lebar kartu tidak melebihi 340 dp. Pada ruang yang
-                          // cukup GridView menambah kolom; pada ruang sempit
-                          // jumlah kolom otomatis berkurang.
-                          maxCrossAxisExtent: 340,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          // Tinggi eksplisit agar seluruh isi CourseCard muat.
-                          // Jangan gabungkan dengan childAspectRatio.
-                          mainAxisExtent: 240,
-                        ),
-                        itemCount: _courses.length,
-                        itemBuilder: (context, index) {
-                          return CourseCard(course: _courses[index]);
-                        },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildCategoryFilter(),
+                          const SizedBox(height: 16),
+                          Expanded(
+                            child: filteredList.isEmpty
+                                ? const Center(child: Text('Tidak ada mata kuliah.'))
+                                : GridView.builder(
+                                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: 340,
+                                      crossAxisSpacing: 16,
+                                      mainAxisSpacing: 16,
+                                      mainAxisExtent: 240,
+                                    ),
+                                    itemCount: filteredList.length,
+                                    itemBuilder: (context, index) {
+                                      return CourseCard(course: filteredList[index]);
+                                    },
+                                  ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -90,18 +127,26 @@ class _AcademicDashboardScreenState extends State<AcademicDashboardScreen> {
               );
             }
 
-            // Default (smartphone): tata letak 1 kolom vertikal
+            // Default (Smartphone): 1 Kolom Vertikal
             return ListView(
               padding: const EdgeInsets.all(16),
               children: [
                 const HeaderBanner(),
                 const SizedBox(height: 16),
                 Text(
-                  'Mata Kuliah Semester 5 (${_courses.length} Terdaftar)',
+                  'Mata Kuliah Semester 5 (${filteredList.length} Terdaftar)',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 12),
-                ..._courses.map((course) => CourseCard(course: course)),
+                _buildCategoryFilter(),
+                const SizedBox(height: 16),
+                if (filteredList.isEmpty)
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 32.0),
+                    child: Center(child: Text('Tidak ada mata kuliah.')),
+                  )
+                else
+                  ...filteredList.map((course) => CourseCard(course: course)),
               ],
             );
           },
