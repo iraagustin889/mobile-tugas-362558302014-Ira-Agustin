@@ -24,7 +24,8 @@ void main() {
 
       // Verifikasi Card dan Informasi Pokok Mahasiswa
       expect(find.byType(Card), findsAtLeastNWidgets(1));
-      expect(find.text('Jurusan / Kampus'), findsOneWidget);
+      expect(find.text('Jurusan'), findsOneWidget);
+      expect(find.text('Kampus'), findsOneWidget);
       expect(find.text('Program Studi'), findsOneWidget);
       expect(find.text('Semester & Angkatan'), findsOneWidget);
     });

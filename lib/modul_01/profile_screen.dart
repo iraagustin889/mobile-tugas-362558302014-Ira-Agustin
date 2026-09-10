@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(16.0), // DIPERKECIL DARI 24
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -58,11 +58,11 @@ class ProfileScreen extends StatelessWidget {
                   color: Color(0xFF0284C7),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12), // DIPERKECIL
 
               // Nama mahasiswa
               const Text(
-                'Ira Agustin', // Ganti dengan nama asli Anda
+                'Ira Agustin', 
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Text(
-                  'NIM: 362558302014', // Ganti dengan NIM asli Anda
+                  'NIM: 362558302014', 
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
@@ -87,7 +87,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16), // DIPERKECIL DARI 24
 
               // Kartu informasi akademik
               Card(
@@ -98,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 color: Colors.white,
                 child: const Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(16.0), // DIPERKECIL
                   child: Column(
                     children: [
                       _InfoRow(
@@ -106,29 +106,29 @@ class ProfileScreen extends StatelessWidget {
                         label: 'Jurusan',
                         value: 'Bisnis dan Informatika',
                       ),
-                      Divider(height: 24, color: Color(0xFFF1F5F9)),
+                      Divider(height: 12, color: Color(0xFFF1F5F9)), // DIPERKECIL
                       _InfoRow(
                         icon: Icons.code_rounded,
                         label: 'Program Studi',
                         value: 'Sarjana Terapan TRPL',
                       ),
-                      Divider(height: 24, color: Color(0xFFF1F5F9)),
+                      Divider(height: 12, color: Color(0xFFF1F5F9)), // DIPERKECIL
                       _InfoRow(
                         icon: Icons.location_on_rounded,
                         label: 'Kampus',
                         value: 'Politeknik Negeri Banyuwangi',
                       ),
-                      Divider(height: 24, color: Color(0xFFF1F5F9)),
+                      Divider(height: 12, color: Color(0xFFF1F5F9)), // DIPERKECIL
                       _InfoRow(
                         icon: Icons.calendar_today_rounded,
-                        label: 'Semester / TA',
+                        label: 'Semester & Angkatan',
                         value: 'Semester 3 (2025/2026)',
                       ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 16), // DIPERKECIL DARI 24
 
               // Tombol verifikasi dengan feedback SnackBar
               SizedBox(

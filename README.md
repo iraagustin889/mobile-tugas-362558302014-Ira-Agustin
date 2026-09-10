@@ -14,8 +14,8 @@ Panduan interaktif lengkap: [Portal Codelabs TRPL Poliwangi](https://codelabs-po
 
 | Informasi | Data Mahasiswa |
 |---|---|
-| **Nama Lengkap** | Ira Agustin *(Ganti dengan Nama Lengkap Anda)* |
-| **NIM** | 362558302014 *(Ganti dengan NIM Asli Anda)* |
+| **Nama Lengkap** | Ira Agustin |
+| **NIM** | 362558302014 |
 | **Kelas / Angkatan** | TRPL 2E / 2025 |
 | **Dosen Pengampu** | Sepyan Purnama Kristanto, M.Kom. |
 
